@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BM Year 1 Modular Learning App</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fff8e1, #e3f2fd, #fce4ec);
+      margin: 0;
+      padding: 18px;
+      color: #263238;
+    }
+
+    .app {
+      max-width: 820px;
+      margin: auto;
+      background: white;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+      border: 5px solid #bbdefb;
+    }
+
+    h1 {
+      color: #1565c0;
+      font-size: 32px;
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 20px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .student-box, .card {
+      background: #f7fbff;
+      border-radius: 22px;
+      padding: 18px;
+      margin: 16px 0;
+      border: 2px solid #d7ecff;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    input, select {
+      font-size: 20px;
+      padding: 13px;
+      border-radius: 14px;
+      border: 2px solid #90caf9;
+      width: 100%;
+      margin-top: 6px;
+      background: white;
+    }
+
+    .module-info {
+      background: #e8f5e9;
+      border: 2px solid #81c784;
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .word-box {
+      font-size: 64px;
+      font-weight: bold;
+      color: #2e7d32;
+      background: #f1f8e9;
+      padding: 28px;
+      border-radius: 24px;
+      margin: 18px 0;
+      text-align: center;
+      border: 3px dashed #81c784;
+    }
+
+    .sentence-box {
+      font-size: 28px;
+      font-weight: bold;
+      color: #6a1b9a;
+      background: #f3e5f5;
+      padding: 22px;
+      border-radius: 20px;
+      margin: 18px 0;
+      text-align: center;
+    }
+
+    button {
+      font-size: 19px;
+      font-weight: bold;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 16px;
+      margin: 7px 4px;
+      cursor: pointer;
+      background: #1976d2;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.16);
+    }
+
+    button:hover { background: #0d47a1; }
+
+    .big-action {
+      font-size: 24px;
+      padding: 20px 24px;
+      border-radius: 22px;
+    }
+
+    .green { background: #2e7d32; }
+    .green:hover { background: #1b5e20; }
+    .orange { background: #ef6c00; }
+    .orange:hover { background: #e65100; }
+    .purple { background: #7b1fa2; }
+    .purple:hover { background: #4a148c; }
+    .red { background: #c62828; }
+    .red:hover { background: #8e0000; }
+
+    .button-row { text-align: center; }
+
+    .result {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 15px;
+      min-height: 38px;
+      text-align: center;
+    }
+
+    .score-board {
+      background: #fff3e0;
+      padding: 16px;
+      border-radius: 18px;
+      margin-top: 18px;
+      font-size: 20px;
+      text-align: center;
+      border: 2px solid #ffcc80;
+    }
+
+    .level {
+      font-size: 26px;
+      font-weight: bold;
+      padding: 16px;
+      border-radius: 20px;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .mastered { background: #e8f5e9; color: #1b5e20; border: 3px solid #66bb6a; }
+    .not-yet { background: #ffebee; color: #b71c1c; border: 3px solid #ef5350; }
+    .near { background: #fff8e1; color: #e65100; border: 3px solid #ffb300; }
+
+    .reward {
+      background: #e8f5e9;
+      border: 3px solid #66bb6a;
+      color: #1b5e20;
+      padding: 14px;
+      border-radius: 18px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 14px;
+      display: none;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 25px; }
+      .word-box { font-size: 48px; }
+      .sentence-box { font-size: 22px; }
+      button { width: 100%; margin: 7px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>📘 BM Year 1 Modular Learning App</h1>
+    <p style="text-align:center; font-size:15px; color:#444; margin-top:-8px; font-style:italic;">
+      ✨ Created by Cikgu Khaw Mee Jia ✨
+    </p>
+    <div class="subtitle">Pemulihan Bahasa Melayu • DSKP KSSR Tahun 1 • Auto Assessment</div>
+
+    <div class="student-box">
+      <h2>👧 Student Information</h2>
+      <label>Student Name</label>
+      <input id="studentName" placeholder="Example: Ali" />
+
+      <label>Class</label>
+      <select id="studentClass">
+        <option value="">Choose class</option>
+        <option>1P</option><option>1I</option><option>1N</option><option>1H</option><option>1W</option>
+        <option>1A</option><option>1S</option><option>1T</option><option>1U</option><option>1K</option><option>1L</option><option>1G</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h2>📚 Choose Unit & Skill</h2>
+      <label>Module</label>
+      <select id="moduleSelect"></select>
+      <div class="module-info" id="moduleInfo">Module information will appear here.</div>
+    </div>
+
+    <div class="card">
+      <h2>📖 Reading / Speaking Practice</h2>
+      <p class="small">Read the word. Then click the microphone and say the word clearly.</p>
+      <div class="word-box" id="targetWord">baju</div>
+      <div class="button-row">
+        <button class="big-action" onclick="startListening()">🎤 Say the Word</button>
+        <button class="orange" onclick="nextWord()">➡️ Next Word</button>
+      </div>
+      <div class="result" id="voiceResult">Voice result will appear here.</div>
+    </div>
+
+    <div class="card">
+      <h2>✏️ Typing Practice</h2>
+      <p class="small">Type the same word.</p>
+      <input id="typedAnswer" placeholder="Type the word here" />
+      <div class="button-row">
+        <button class="green big-action" onclick="checkTyping()">✅ Check Typing</button>
+      </div>
+      <div class="result" id="typingResult"></div>
+    </div>
+
+    <div class="card">
+      <h2>🧩 Simple Sentence</h2>
+      <p class="small">Type the correct sentence. Start with capital letter and use full stop. If this module has no sentence, choose another module.</p>
+      <div class="sentence-box" id="targetSentence">Saya makan nasi.</div>
+      <input id="sentenceAnswer" placeholder="Type the sentence here" />
+      <div class="button-row">
+        <button class="purple big-action" onclick="checkSentence()">🧩 Check Sentence</button>
+        <button class="orange" onclick="nextSentence()">➡️ Next Sentence</button>
+      </div>
+      <div class="result" id="sentenceResult"></div>
+    </div>
+
+    <div class="card">
+      <h2>🎤 Vocaroo Recording Evidence</h2>
+      <p class="small">For final assessment proof, student records reading in Vocaroo, then paste the link below.</p>
+      <div class="button-row">
+        <button class="red" onclick="openVocaroo()">🎙️ Open Vocaroo</button>
+      </div>
+      <label>Paste Vocaroo Link</label>
+      <input id="vocarooLink" placeholder="Paste Vocaroo link here" />
+    </div>
+
+    <div class="score-board">
+      ✅ Score: <span id="score">0</span> / <span id="total">0</span><br />
+      Percentage: <span id="percent">0</span>%
+    </div>
+
+    <div id="levelBox" class="level near">Status: Start the activity</div>
+    <div id="rewardBox" class="reward">🎉 Great job! Keep going!</div>
+
+    <div class="button-row">
+      <button class="green" onclick="saveResult()">📊 Save Result</button>
+      <button class="red" onclick="resetAll()">🔄 Reset</button>
+    </div>
+
+    <p class="small">
+      Voice recognition works best in Google Chrome. Students should open this app using Chrome, not WhatsApp built-in browser.
+    </p>
+  </div>
+
+  <script>
+    /*********************************************************
+     * GOOGLE FORM RECORDING SETUP
+     * Current Google Form fields are kept exactly as your working version.
+     * TEMPORARY: Unit/Skill info is saved inside Date Time field until you add new form fields later.
+     *********************************************************/
+    const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSclRTb7qu_zCWncXfr96BFU_BSXJDhiDwBFo8yq462Ge3uIHQ/formResponse";
+
+    const FORM_FIELDS = {
+      name: "entry.1092728077",
+      className: "entry.1314632048",
+      score: "entry.776686397",
+      total: "entry.1798402421",
+      percent: "entry.836687957",
+      status: "entry.1559204106",
+      vocaroo: "entry.494914330",
+      dateTime: "entry.174364908"
+    };
+
+    /*********************************************************
+     * 32 KEMAHIRAN PEMULIHAN + DSKP KSSR YEAR 1 THEMES
+     * You can edit words/sentences anytime.
+     *********************************************************/
+    const modules = [
+{ unit: "Diri Saya", skillCode: "BM01", skillName: "Huruf Vokal", dskp: "Mengecam dan membunyikan vokal", words: ["a", "e", "i", "o", "u"], voiceAnswers: [["a","ah"],["e","eh","er"],["i","ee","eye"],["o","oh"],["u","oo","you"]], sentences: [] },
+      { unit: "Diri Saya", skillCode: "BM02", skillName: "Huruf Kecil", dskp: "Mengecam huruf kecil", words: ["a", "b", "c", "d", "m", "n", "s"], sentences: [] },
+      { unit: "Diri Saya", skillCode: "BM03", skillName: "Huruf Besar", dskp: "Mengecam huruf besar", words: ["A", "B", "C", "D", "M", "N", "S"], sentences: [] },
+      { unit: "Diri Saya", skillCode: "BM04", skillName: "Padanan Huruf Besar dan Kecil", dskp: "Membaca asas huruf", words: ["Aa", "Bb", "Cc", "Dd", "Mm", "Nn"], sentences: [] },
+
+      { unit: "Sekolah Saya", skillCode: "BM05", skillName: "Suku Kata KV", dskp: "Membaca suku kata terbuka", words: ["ba", "bi", "bu", "ca", "ci", "cu", "ma", "mi", "mu"], sentences: [] },
+      { unit: "Sekolah Saya", skillCode: "BM06", skillName: "Suku Kata KVK", dskp: "Membaca suku kata tertutup", words: ["bas", "jam", "pen", "beg", "cat", "tin"], sentences: [] },
+      { unit: "Diri Saya", skillCode: "BM07", skillName: "Suku Kata VK", dskp: "Membaca suku kata mudah", words: ["am", "an", "is", "us", "ak"], sentences: [] },
+      { unit: "Diri Saya", skillCode: "BM08", skillName: "Suku Kata V", dskp: "Membunyikan vokal sebagai suku kata", words: ["a", "e", "i", "o", "u"], sentences: [] },
+
+      { unit: "Makanan", skillCode: "BM09", skillName: "Perkataan KVKV", dskp: "Membaca perkataan mudah", words: ["baju", "buku", "bola", "meja", "nasi", "susu"], sentences: ["Saya makan nasi.", "Ini baju saya."] },
+      { unit: "Keluarga Saya", skillCode: "BM10", skillName: "Perkataan KVKKV", dskp: "Membaca perkataan mudah", words: ["makan", "minum", "tidur", "basuh"], sentences: ["Ibu makan nasi.", "Adik minum susu."] },
+      { unit: "Sekolah Saya", skillCode: "BM11", skillName: "Perkataan KVK", dskp: "Membaca perkataan tertutup", words: ["bas", "jam", "beg", "pen", "cat"], sentences: ["Ini beg Ali.", "Jam itu besar."] },
+      { unit: "Haiwan", skillCode: "BM12", skillName: "Perkataan KVKVK", dskp: "Membaca perkataan lebih panjang", words: ["itik", "katak", "badak", "ayam"], sentences: ["Itik itu kecil.", "Katak lompat."] },
+
+      { unit: "Haiwan", skillCode: "BM13", skillName: "Digraf ng, ny, sy, kh", dskp: "Menyebut bunyi digraf", words: ["nganga", "nyanyi", "syiling", "khemah"], sentences: ["Ani suka nyanyi."] },
+      { unit: "Alam Sekitar", skillCode: "BM14", skillName: "Diftong ai, au, oi", dskp: "Menyebut diftong", words: ["pantai", "pulau", "amboi", "kedai"], sentences: ["Saya pergi kedai."] },
+      { unit: "Diri Saya", skillCode: "BM15", skillName: "Vokal Berganding", dskp: "Menyebut vokal berganding", words: ["daun", "buah", "kuih", "main"], sentences: ["Saya makan kuih."] },
+      { unit: "Kebersihan", skillCode: "BM16", skillName: "Imbuhan Mudah", dskp: "Membaca perkataan berimbuhan mudah", words: ["makan", "memakai", "berlari", "mencuci"], sentences: ["Saya mencuci tangan."] },
+
+      { unit: "Keluarga Saya", skillCode: "BM17", skillName: "Kata Nama", dskp: "Mengenal kata nama", words: ["ibu", "ayah", "adik", "guru", "buku"], sentences: ["Ibu masak nasi."] },
+      { unit: "Aktiviti Harian", skillCode: "BM18", skillName: "Kata Kerja", dskp: "Mengenal kata kerja", words: ["makan", "minum", "baca", "tulis", "lari"], sentences: ["Ali baca buku."] },
+      { unit: "Diri Saya", skillCode: "BM19", skillName: "Kata Adjektif", dskp: "Mengenal kata adjektif", words: ["besar", "kecil", "cantik", "bersih", "comel"], sentences: ["Baju itu cantik."] },
+      { unit: "Keluarga Saya", skillCode: "BM20", skillName: "Frasa Nama", dskp: "Membina frasa nama", words: ["ibu saya", "buku Ali", "bola biru", "meja guru"], sentences: ["Ini ibu saya."] },
+
+      { unit: "Aktiviti Harian", skillCode: "BM21", skillName: "Frasa Kerja", dskp: "Membina frasa kerja", words: ["makan nasi", "baca buku", "minum susu", "cuci tangan"], sentences: ["Saya baca buku."] },
+      { unit: "Makanan", skillCode: "BM22", skillName: "Ayat Mudah S + P", dskp: "Membina ayat mudah", words: ["saya", "makan", "nasi", "ibu", "minum", "susu"], sentences: ["Saya makan nasi.", "Ibu minum susu."] },
+      { unit: "Sekolah Saya", skillCode: "BM23", skillName: "Ayat Penyata", dskp: "Membaca dan menulis ayat penyata", words: ["Ini buku.", "Ali baca buku.", "Guru tulis."], sentences: ["Ini buku Ali.", "Guru tulis nama."] },
+      { unit: "Sekolah Saya", skillCode: "BM24", skillName: "Ayat Tanya Mudah", dskp: "Mengenal ayat tanya", words: ["Siapa", "Apa", "Mana"], sentences: ["Siapa nama kamu?", "Apa itu?"] },
+
+      { unit: "Keselamatan", skillCode: "BM25", skillName: "Ayat Perintah Mudah", dskp: "Menggunakan ayat perintah", words: ["Jangan", "Sila", "Tolong"], sentences: ["Jangan berlari.", "Sila duduk."] },
+      { unit: "Penulisan", skillCode: "BM26", skillName: "Tanda Baca Noktah", dskp: "Menulis ayat dengan tanda baca", words: ["Saya makan nasi.", "Ini bola."], sentences: ["Saya makan nasi.", "Ini bola biru."] },
+      { unit: "Penulisan", skillCode: "BM27", skillName: "Huruf Besar Awal Ayat", dskp: "Menulis huruf besar dengan betul", words: ["Saya", "Ali", "Ibu", "Ini"], sentences: ["Saya suka susu.", "Ali baca buku."] },
+      { unit: "Penulisan", skillCode: "BM28", skillName: "Ejaan Perkataan Lazim", dskp: "Mengeja perkataan lazim", words: ["saya", "kamu", "mereka", "sekolah", "rumah"], sentences: ["Saya pergi sekolah."] },
+
+      { unit: "Bacaan", skillCode: "BM29", skillName: "Baca Ayat Mudah", dskp: "Membaca ayat mudah dengan sebutan betul", words: ["Saya makan nasi.", "Ali baca buku.", "Ibu beli roti."], sentences: ["Saya makan nasi.", "Ali baca buku."] },
+      { unit: "Bacaan", skillCode: "BM30", skillName: "Baca Petikan Pendek", dskp: "Membaca petikan pendek", words: ["Ali ada bola. Bola itu biru."], sentences: ["Ali ada bola. Bola itu biru."] },
+      { unit: "Kefahaman", skillCode: "BM31", skillName: "Jawab Soalan Pemahaman", dskp: "Memahami bahan yang dibaca", words: ["siapa", "apa", "di mana"], sentences: ["Ali ada bola."] },
+      { unit: "Alam Sekitar", skillCode: "BM32", skillName: "Bina Ayat Berdasarkan Gambar", dskp: "Membina ayat mudah berdasarkan rangsangan", words: ["pokok", "bunga", "air", "siram"], sentences: ["Saya siram pokok.", "Bunga itu cantik."] }
+    ];
+
+    let currentModuleIndex = 0;
+    let currentWordIndex = 0;
+    let currentSentenceIndex = 0;
+    let score = 0;
+    let total = 0;
+    const answeredQuestions = new Set();
+
+    function cleanText(text) {
+      return String(text).toLowerCase().replace(/[.,!?]/g, "").replace(/\s+/g, " ").trim();
+    }
+
+function getAcceptedVoiceAnswers(module, index) {
+  if (module.voiceAnswers && module.voiceAnswers[index]) {
+    return module.voiceAnswers[index].map(cleanText);
+  }
+  return [cleanText(module.words[index])];
+}
+    function getCurrentModule() {
+      return modules[currentModuleIndex];
+    }
+
+    function populateModules() {
+      const select = document.getElementById("moduleSelect");
+      select.innerHTML = "";
+      modules.forEach((m, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = m.skillCode + " - " + m.unit + " - " + m.skillName;
+        select.appendChild(option);
+      });
+
+      select.addEventListener("change", function() {
+        loadModule(Number(this.value));
+      });
+    }
+
+    function loadModule(index) {
+      currentModuleIndex = index;
+      currentWordIndex = 0;
+      currentSentenceIndex = 0;
+      score = 0;
+      total = 0;
+      answeredQuestions.clear();
+      updateModuleInfo();
+      updateWord();
+      updateSentence();
+      updateScoreBoard();
+    }
+
+    function updateModuleInfo() {
+      const m = getCurrentModule();
+      document.getElementById("moduleInfo").innerHTML =
+        "<b>Unit:</b> " + m.unit + "<br>" +
+        "<b>Skill:</b> " + m.skillCode + " - " + m.skillName + "<br>" +
+        "<b>DSKP Link:</b> " + m.dskp;
+    }
+
+    function updateWord() {
+      const m = getCurrentModule();
+      const word = m.words.length ? m.words[currentWordIndex] : "No word";
+      document.getElementById("targetWord").textContent = word;
+      document.getElementById("voiceResult").textContent = "Voice result will appear here.";
+      document.getElementById("typingResult").textContent = "";
+      document.getElementById("typedAnswer").value = "";
+    }
+
+    function updateSentence() {
+      const m = getCurrentModule();
+      const sentence = m.sentences.length ? m.sentences[currentSentenceIndex] : "No sentence for this module.";
+      document.getElementById("targetSentence").textContent = sentence;
+      document.getElementById("sentenceResult").textContent = "";
+      document.getElementById("sentenceAnswer").value = "";
+    }
+
+    function nextWord() {
+      const m = getCurrentModule();
+      if (!m.words.length) return;
+      currentWordIndex = (currentWordIndex + 1) % m.words.length;
+      updateWord();
+    }
+
+    function nextSentence() {
+      const m = getCurrentModule();
+      if (!m.sentences.length) return;
+      currentSentenceIndex = (currentSentenceIndex + 1) % m.sentences.length;
+      updateSentence();
+    }
+
+    function addScore(questionKey, correct) {
+      const moduleKey = getCurrentModule().skillCode + "_" + questionKey;
+      if (answeredQuestions.has(moduleKey)) return false;
+      answeredQuestions.add(moduleKey);
+      total++;
+      if (correct) score++;
+      updateScoreBoard();
+      return true;
+    }
+
+    function getPercent() {
+      if (total === 0) return 0;
+      return Math.round((score / total) * 100);
+    }
+
+    function getStatus() {
+      const percent = getPercent();
+      if (total === 0) return "Start the activity";
+      if (percent >= 80) return "Menguasai";
+      if (percent >= 50) return "Hampir Menguasai";
+      return "Belum Menguasai";
+    }
+
+    function updateScoreBoard() {
+      const percent = getPercent();
+      const status = getStatus();
+      document.getElementById("score").textContent = score;
+      document.getElementById("total").textContent = total;
+      document.getElementById("percent").textContent = percent;
+
+      const levelBox = document.getElementById("levelBox");
+      levelBox.textContent = "Status: " + status;
+      levelBox.className = "level";
+      if (status === "Menguasai") levelBox.classList.add("mastered");
+      else if (status === "Hampir Menguasai") levelBox.classList.add("near");
+      else if (status === "Belum Menguasai") levelBox.classList.add("not-yet");
+      else levelBox.classList.add("near");
+
+      const rewardBox = document.getElementById("rewardBox");
+      if (total > 0 && percent >= 80) {
+        rewardBox.style.display = "block";
+        rewardBox.textContent = "🎉 Excellent! You are Menguasai!";
+      } else if (total > 0 && percent >= 50) {
+        rewardBox.style.display = "block";
+        rewardBox.textContent = "🌟 Good try! Keep practising!";
+      } else if (total > 0) {
+        rewardBox.style.display = "block";
+        rewardBox.textContent = "💪 Try again. You can do it!";
+      } else {
+        rewardBox.style.display = "none";
+      }
+    }
+
+    function startListening() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        document.getElementById("voiceResult").textContent = "❌ This browser does not support voice recognition. Please use Google Chrome.";
+        return;
+      }
+
+      const m = getCurrentModule();
+      if (!m.words.length) {
+        document.getElementById("voiceResult").textContent = "❌ No word in this module.";
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = "ms-MY";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      document.getElementById("voiceResult").textContent = "🎧 Listening... please say the word.";
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const spokenText = cleanText(event.results[0][0].transcript);
+        const target = cleanText(m.words[currentWordIndex]);
+        const questionKey = "voice_word_" + currentWordIndex;
+
+        const accepted = getAcceptedVoiceAnswers(m, currentWordIndex);
+
+if (accepted.includes(spokenText)) {
+          const counted = addScore(questionKey, true);
+          document.getElementById("voiceResult").textContent = counted
+            ? "✅ Correct! I heard: " + spokenText
+            : "✅ Correct! You already tried this question. Score not added again.";
+        } else {
+          const counted = addScore(questionKey, false);
+          document.getElementById("voiceResult").textContent = counted
+            ? "❌ Try again. I heard: " + spokenText + " | Correct: " + target
+            : "❌ Try again. I heard: " + spokenText + " | Score not added again.";
+        }
+      };
+
+      recognition.onerror = function(event) {
+        document.getElementById("voiceResult").textContent = "❌ Voice error: " + event.error + ". Please try again.";
+      };
+    }
+
+    function checkTyping() {
+      const m = getCurrentModule();
+      const typed = cleanText(document.getElementById("typedAnswer").value);
+      const target = cleanText(m.words[currentWordIndex]);
+      if (!typed) {
+        document.getElementById("typingResult").textContent = "⚠️ Please type first.";
+        return;
+      }
+      const questionKey = "typing_word_" + currentWordIndex;
+      if (typed === target) {
+        const counted = addScore(questionKey, true);
+        document.getElementById("typingResult").textContent = counted
+          ? "✅ Correct spelling!"
+          : "✅ Correct spelling! You already tried this question. Score not added again.";
+      } else {
+        const counted = addScore(questionKey, false);
+        document.getElementById("typingResult").textContent = counted
+          ? "❌ Try again. Correct word is: " + target
+          : "❌ Try again. Score not added again.";
+      }
+    }
+
+    function checkSentence() {
+      const m = getCurrentModule();
+      if (!m.sentences.length) {
+        document.getElementById("sentenceResult").textContent = "⚠️ No sentence for this module.";
+        return;
+      }
+      const typed = cleanText(document.getElementById("sentenceAnswer").value);
+      const target = cleanText(m.sentences[currentSentenceIndex]);
+      if (!typed) {
+        document.getElementById("sentenceResult").textContent = "⚠️ Please type the sentence first.";
+        return;
+      }
+      const questionKey = "sentence_" + currentSentenceIndex;
+      if (typed === target) {
+        const counted = addScore(questionKey, true);
+        document.getElementById("sentenceResult").textContent = counted
+          ? "✅ Correct sentence!"
+          : "✅ Correct sentence! You already tried this question. Score not added again.";
+      } else {
+        const counted = addScore(questionKey, false);
+        document.getElementById("sentenceResult").textContent = counted
+          ? "❌ Try again. Correct sentence: " + m.sentences[currentSentenceIndex]
+          : "❌ Try again. Score not added again.";
+      }
+    }
+
+    function openVocaroo() {
+      window.open("https://vocaroo.com/", "_blank");
+    }
+
+    function saveResult() {
+      const m = getCurrentModule();
+      const name = document.getElementById("studentName").value.trim();
+      const className = document.getElementById("studentClass").value;
+      const vocaroo = document.getElementById("vocarooLink").value.trim();
+      const percent = getPercent();
+      const status = getStatus();
+      const dateTime = new Date().toLocaleString();
+
+      if (!name || !className) {
+        alert("Please enter student name and class first.");
+        return;
+      }
+
+      const localRecord = {
+        name,
+        className,
+        unit: m.unit,
+        skillCode: m.skillCode,
+        skillName: m.skillName,
+        score,
+        total,
+        percent,
+        status,
+        vocaroo,
+        dateTime
+      };
+      const saved = JSON.parse(localStorage.getItem("bm_year1_records") || "[]");
+      saved.push(localRecord);
+      localStorage.setItem("bm_year1_records", JSON.stringify(saved));
+
+      const formData = new FormData();
+      formData.append(FORM_FIELDS.name, name);
+      formData.append(FORM_FIELDS.className, className);
+      formData.append(FORM_FIELDS.score, String(score));
+      formData.append(FORM_FIELDS.total, String(total));
+      formData.append(FORM_FIELDS.percent, String(percent));
+      formData.append(FORM_FIELDS.status, status);
+      formData.append(FORM_FIELDS.vocaroo, vocaroo);
+      formData.append(FORM_FIELDS.dateTime, dateTime);
+
+      // New Google Form fields in Malay:
+      // UNIT, KOD KEMAHIRAN, NAMA KEMAHIRAN
+      formData.append("entry.1145985719", m.unit);
+      formData.append("entry.1936478213", m.skillCode);
+      formData.append("entry.47186875", m.skillName);
+
+      fetch(GOOGLE_FORM_ACTION_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      });
+
+      alert("✅ Result saved! " + m.skillCode + " - " + m.skillName + " | Status: " + status + " (" + percent + "%)");
+    }
+
+    function resetAll() {
+      score = 0;
+      total = 0;
+      answeredQuestions.clear();
+      currentWordIndex = 0;
+      currentSentenceIndex = 0;
+      updateWord();
+      updateSentence();
+      updateScoreBoard();
+      document.getElementById("vocarooLink").value = "";
+    }
+
+    populateModules();
+    loadModule(0);
+  </script>
+</body>
+</html>

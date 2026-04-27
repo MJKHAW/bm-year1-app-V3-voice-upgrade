@@ -516,7 +516,11 @@ function getAcceptedVoiceAnswers(module, index) {
 
         const accepted = getAcceptedVoiceAnswers(m, currentWordIndex);
 
-if (accepted.includes(spokenText)) {
+if (
+  accepted.includes(spokenText) ||
+  accepted.some(a => spokenText.includes(a)) ||
+  accepted.some(a => a.includes(spokenText))
+) {
           const counted = addScore(questionKey, true);
           document.getElementById("voiceResult").textContent = counted
             ? "✅ Correct! I heard: " + spokenText
